@@ -1,4 +1,4 @@
-import { createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import persistReducer from 'redux-persist/es/persistReducer';
 import storage from 'redux-persist/lib/storage';
 
@@ -11,7 +11,7 @@ const filterSlice = createSlice({
   reducers: {
     changeFiltre(state, action) {
       state.value = action.payload;
-    }
+    },
   },
 });
 
