@@ -1,58 +1,34 @@
-import { useEffect, useState } from 'react';
-import { nanoid } from 'nanoid';
+import { useMemo, useState } from 'react';
 
 import { Section } from 'components/Section/Section';
 import { Phonebook } from 'components/Phonebook/Phonebook';
 import { ContactList } from 'components/Contacts/ContactList';
 import { Filter } from 'components/Filter/Filter';
+import { useSelector } from 'react-redux';
 
 export function App() {
-  const [contacts, setContacts] = useState(() =>
-    JSON.parse(window.localStorage.getItem('contacts'))
-      ? JSON.parse(window.localStorage.getItem('contacts'))
-      : []
-  );
   const [filter, setfilter] = useState('');
 
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
 
-  const addContact = (name, number) => {
-    setContacts(contacts => [...contacts, { id: nanoid(), name, number }]);
-  };
+  const contacts = useSelector(state => state.contacts.value);
 
-  const deleteContact = id => {
-    let indexEl;
-    for (let i = 0; i < contacts.length; i++) {
-      if (contacts[i].id === id) {
-        indexEl = i;
-      }
-    }
-    setContacts(contacts => {
-      const stateRed = [...contacts];
-      stateRed.splice(indexEl, 1);
-      return stateRed;
-    });
-  };
+  // const contactsFil = contacts.filter(({ name }) =>
+  //   name.toLowerCase().includes(filter.toLowerCase())
+  // );
 
-  const contactsFil = contacts.filter(({ name }) =>
-    name.toLowerCase().includes(filter.toLowerCase())
-  );
-
-  // const contactsFil = useMemo(() => contacts.filter(({ name }) =>
-  //     name.toLowerCase().includes(filter.toLowerCase())
-  //   )
-  // , [contacts, filter]);
+  const contactsFil = useMemo(() => contacts.filter(({ name }) =>
+      name.toLowerCase().includes(filter.toLowerCase())
+    )
+  , [contacts, filter]);
 
   return (
     <div>
       <Section title="Phonebook">
-        <Phonebook addContact={addContact} contacts={contacts} />
+        <Phonebook />
       </Section>
       <Section title="Contacts">
         <Filter change={setfilter} value={filter} />
-        <ContactList contacts={contactsFil} deleteContact={deleteContact} />
+        <ContactList contacts={contactsFil} />
       </Section>
     </div>
   );

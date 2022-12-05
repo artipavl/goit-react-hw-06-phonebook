@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import css from 'components/Phonebook/Phonebook.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
 
-export function Phonebook({ addContact, contacts }) {
-
+export function Phonebook() {
+  const contacts = useSelector(state => state.contacts.value);
+  const dispatch = useDispatch();
+  
   const [name, setName] = useState(() =>
     JSON.parse(window.localStorage.getItem('name'))
       ? JSON.parse(window.localStorage.getItem('name'))
@@ -32,12 +36,12 @@ export function Phonebook({ addContact, contacts }) {
       }
     }
 
-    addContact(name, number);
+    dispatch(addContact({ name, number }));
     setName('');
     setNumber('');
   };
 
-  const changeForm = (e) => {
+  const changeForm = e => {
     const name = e.target.name;
     const value = e.target.value;
     switch (name) {
@@ -88,13 +92,13 @@ export function Phonebook({ addContact, contacts }) {
   );
 }
 
-Phonebook.propTypes = {
-  addContact: PropTypes.func.isRequired,
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-};
+// Phonebook.propTypes = {
+//   addContact: PropTypes.func.isRequired,
+//   contacts: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       name: PropTypes.string.isRequired,
+//       number: PropTypes.string.isRequired,
+//       id: PropTypes.string.isRequired,
+//     })
+//   ).isRequired,
+// };

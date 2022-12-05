@@ -3,12 +3,13 @@ import css from 'components/Contacts/ContactList.module.css';
 
 import { ContactItem } from "components/Contacts/ContactItem";
 
-export const ContactList = ({ contacts, deleteContact }) => {
+
+export const ContactList = ({ contacts }) => {
   return (
     <ul className={css.list}>
-      {contacts.map(contact => 
-          <ContactItem key={contact.id} contact={contact} deleteContact={deleteContact} />
-       )}
+      {contacts.map(contact => (
+        <ContactItem key={contact.id} contact={contact} />
+      ))}
     </ul>
   );
 };
