@@ -26,7 +26,7 @@ const contactsSlice = createSlice({
 });
 
 const persistConfig = {
-  key: 'root',
+  key: 'contacts',
   storage,
 };
 
