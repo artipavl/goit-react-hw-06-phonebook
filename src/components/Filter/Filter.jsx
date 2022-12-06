@@ -13,7 +13,7 @@ export const Filter = () => {
     },
     { filter },
     'prop',
-    'ContactList'
+    'Filter'
   );
 
   return (
