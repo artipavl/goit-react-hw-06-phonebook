@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import css from 'components/Contacts/ContactList.module.css';
 
 import { ContactItem } from 'components/Contacts/ContactItem';
@@ -19,6 +19,21 @@ export const ContactList = () => {
     [contacts, filter]
   );
 
+  // Знайшов лише такий спосіб перевірки
+  PropTypes.checkPropTypes(
+    {
+      contacts: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string.isRequired,
+        })
+      ),
+      filter: PropTypes.string.isRequired,
+    },
+    { contacts, filter },
+    'prop',
+    'ContactList'
+  );
+
   return (
     <ul className={css.list}>
       {contactsFil.map(contact => (
@@ -31,7 +46,7 @@ export const ContactList = () => {
 // ContactList.propTypes = {
 //   contacts: PropTypes.arrayOf(
 //     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
+//       id: PropTypes.number.isRequired,
 //     })
 //   ).isRequired,
 // };
