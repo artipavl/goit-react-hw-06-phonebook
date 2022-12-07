@@ -1,20 +1,9 @@
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeFiltre } from 'redux/filterSlice';
 
 export const Filter = () => {
   const filter = useSelector(state => state.filter.value);
   const dispatch = useDispatch();
-
-  // Знайшов лише такий спосіб перевірки
-  PropTypes.checkPropTypes(
-    {
-      filter: PropTypes.string.isRequired,
-    },
-    { filter },
-    'prop',
-    'Filter'
-  );
 
   return (
     <div>
@@ -30,8 +19,3 @@ export const Filter = () => {
     </div>
   );
 };
-
-// Filter.propTypes = {
-//   value: PropTypes.string.isRequired,
-//   change: PropTypes.func.isRequired,
-// };
